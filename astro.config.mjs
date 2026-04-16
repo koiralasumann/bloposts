@@ -8,6 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://koiralasumann.github.io',
+  base: '/bloposts',
   integrations: [mdx(), sitemap()],
   markdown: {
     shikiConfig: {

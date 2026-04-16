@@ -1,0 +1,12 @@
+---
+import CaseStudy from '../../layouts/CaseStudy.astro';
+---
+
+<CaseStudy
+	title="Client onboarding automation"
+	client="Mid-size accounting firm (50+ staff)"
+	problem="Onboarding a new client took 2 hours of manual data entry across Karbon, Xero, and their internal systems. Staff had to enter the same client details in three different places, leading to frequent typos and missing information. The engagement letter process alone involved 8 manual steps."
+	approach="Mapped the full onboarding workflow with the operations team. Built a single intake form that feeds into a Zapier automation chain: client data gets pushed to Karbon (practice management), Xero (accounting), and a master Google Sheet simultaneously. Added validation steps to catch missing fields before they propagate. Built in error notifications so the team knows immediately if something fails."
+	tools={['Zapier', 'Karbon', 'Xero', 'Google Sheets', 'Google Forms']}
+	outcome="Reduced onboarding time from 2 hours to 15 minutes. Eliminated duplicate data entry errors. The firm onboarded 40% more clients in the first quarter after implementation without adding staff."
+/>

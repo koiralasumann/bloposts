@@ -1,0 +1,59 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	title: string;
+	client: string;
+	problem: string;
+	approach: string;
+	tools: string[];
+	outcome: string;
+}
+
+const { title, client, problem, approach, tools, outcome } = Astro.props;
+---
+
+<BaseLayout title={`${title} — Suman Koirala`} description={problem}>
+	<article class="max-w-2xl">
+		<a href="/portfolio/" class="text-sm text-text-muted dark:text-dark-text-muted hover:text-accent transition-colors mb-6 inline-block">
+			&larr; Back to portfolio
+		</a>
+
+		<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-text dark:text-dark-text mb-2">
+			{title}
+		</h1>
+		<p class="text-sm font-mono text-text-muted dark:text-dark-text-muted mb-8">
+			{client}
+		</p>
+
+		<div class="space-y-8">
+			<section>
+				<h2 class="text-sm font-semibold uppercase tracking-wider text-text-muted dark:text-dark-text-muted mb-2">Problem</h2>
+				<p class="text-text dark:text-dark-text leading-relaxed">{problem}</p>
+			</section>
+
+			<section>
+				<h2 class="text-sm font-semibold uppercase tracking-wider text-text-muted dark:text-dark-text-muted mb-2">Approach</h2>
+				<p class="text-text dark:text-dark-text leading-relaxed">{approach}</p>
+			</section>
+
+			<section>
+				<h2 class="text-sm font-semibold uppercase tracking-wider text-text-muted dark:text-dark-text-muted mb-2">Tools used</h2>
+				<div class="flex flex-wrap gap-2">
+					{tools.map((tool) => (
+						<span class="text-sm font-mono px-2.5 py-1 rounded bg-surface-alt dark:bg-dark-surface-alt text-text dark:text-dark-text border border-border dark:border-dark-border">
+							{tool}
+						</span>
+					))}
+				</div>
+			</section>
+
+			<section>
+				<h2 class="text-sm font-semibold uppercase tracking-wider text-text-muted dark:text-dark-text-muted mb-2">Outcome</h2>
+				<p class="text-text dark:text-dark-text leading-relaxed">{outcome}</p>
+			</section>
+		</div>
+
+		<slot />
+	</article>
+</BaseLayout>

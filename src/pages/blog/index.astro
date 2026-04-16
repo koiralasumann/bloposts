@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog', ({ data }) => {
+	return import.meta.env.PROD ? !data.draft : true;
+})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Collect all tags from published posts
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<BaseLayout title="Blog — Suman Koirala" description="Writing about automation, API integrations, and workflow problems I've actually solved.">
+	<section>
+		<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-text dark:text-dark-text mb-3">
+			Blog
+		</h1>
+		<p class="text-text-muted dark:text-dark-text-muted mb-8 max-w-2xl">
+			Implementation details, API problems, and debugging war stories from real automation projects.
+		</p>
+
+		<!-- Tag filters -->
+		{allTags.length > 0 && (
+			<div class="flex flex-wrap gap-2 mb-10" id="tag-filters">
+				<button
+					data-tag="all"
+					class="tag-chip active text-xs font-mono px-2.5 py-1 rounded border border-border dark:border-dark-border transition-colors cursor-pointer bg-accent text-white border-accent"
+				>
+					all
+				</button>
+				{allTags.map((tag) => (
+					<button
+						data-tag={tag}
+						class="tag-chip text-xs font-mono px-2.5 py-1 rounded border border-border dark:border-dark-border text-text-muted dark:text-dark-text-muted hover:border-accent/40 transition-colors cursor-pointer bg-transparent"
+					>
+						{tag}
+					</button>
+				))}
+			</div>
+		)}
+
+		<!-- Post list -->
+		<div class="space-y-8" id="post-list">
+			{posts.map((post) => (
+				<a
+					href={`/blog/${post.id}/`}
+					class="block group post-item"
+					data-tags={post.data.tags.join(',')}
+				>
+					<article>
+						<div class="flex items-center gap-3 text-sm text-text-muted dark:text-dark-text-muted mb-1">
+							<FormattedDate date={post.data.pubDate} />
+							{post.data.draft && (
+								<span class="text-xs font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+									draft
+								</span>
+							)}
+						</div>
+						<h2 class="text-lg font-semibold text-text dark:text-dark-text group-hover:text-accent transition-colors">
+							{post.data.title}
+						</h2>
+						<p class="text-sm text-text-muted dark:text-dark-text-muted mt-1">
+							{post.data.description}
+						</p>
+						{post.data.tags.length > 0 && (
+							<div class="flex flex-wrap gap-1.5 mt-2">
+								{post.data.tags.map((tag: string) => (
+									<span class="text-xs font-mono text-text-muted dark:text-dark-text-muted">
+										#{tag}
+									</span>
+								))}
+							</div>
+						)}
+					</article>
+				</a>
+			))}
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	function setupTagFilters() {
+		const chips = document.querySelectorAll<HTMLButtonElement>('.tag-chip');
+		const posts = document.querySelectorAll<HTMLElement>('.post-item');
+
+		chips.forEach((chip) => {
+			chip.addEventListener('click', () => {
+				const tag = chip.dataset.tag;
+
+				// Update active chip styles
+				chips.forEach((c) => {
+					c.classList.remove('bg-accent', 'text-white', 'border-accent');
+					c.classList.add('bg-transparent', 'text-text-muted', 'dark:text-dark-text-muted');
+				});
+				chip.classList.add('bg-accent', 'text-white', 'border-accent');
+				chip.classList.remove('bg-transparent', 'text-text-muted', 'dark:text-dark-text-muted');
+
+				// Filter posts
+				posts.forEach((post) => {
+					if (tag === 'all') {
+						post.style.display = '';
+					} else {
+						const postTags = post.dataset.tags?.split(',') || [];
+						post.style.display = postTags.includes(tag!) ? '' : 'none';
+					}
+				});
+			});
+		});
+	}
+
+	setupTagFilters();
+	document.addEventListener('astro:after-swap', setupTagFilters);
+</script>

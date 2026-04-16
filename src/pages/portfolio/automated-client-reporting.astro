@@ -1,0 +1,12 @@
+---
+import CaseStudy from '../../layouts/CaseStudy.astro';
+---
+
+<CaseStudy
+	title="Automated client reporting"
+	client="Tax advisory firm (25 staff)"
+	problem="Monthly client reports were assembled manually from multiple data sources — SharePoint files, Excel workbooks, and data pulled from their practice management system. Each report took 45 minutes to compile. With 60+ clients, report week was a scramble."
+	approach="Built a Power Automate flow that runs on the 1st of each month. It pulls data from the relevant SharePoint lists and Excel workbooks, populates a report template, and saves the draft to each client's folder. An Outlook notification goes to the assigned staff member with a link to review. Staff review, make any needed adjustments, and send — turning a 45-minute task into a 5-minute review."
+	tools={['Power Automate', 'SharePoint', 'Excel', 'Outlook']}
+	outcome="Reports generate automatically on the 1st of each month. Staff review and send in about 5 minutes per client. Freed up roughly 40 hours of staff time during report week."
+/>

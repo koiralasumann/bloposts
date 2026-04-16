@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const caseStudies = [
+	{
+		slug: 'client-onboarding-automation',
+		title: 'Client onboarding automation',
+		client: 'Mid-size accounting firm (50+ staff)',
+		problem: 'Onboarding a new client took 2 hours of manual data entry across Karbon, Xero, and their internal systems.',
+		tools: ['Zapier', 'Karbon', 'Xero', 'Google Sheets'],
+		outcome: 'Reduced onboarding time to 15 minutes. Eliminated duplicate data entry errors.',
+	},
+	{
+		slug: 'invoice-processing-pipeline',
+		title: 'Invoice processing pipeline',
+		client: 'Boutique bookkeeping firm (10 staff)',
+		problem: 'Staff were manually extracting data from PDF invoices and entering it into QuickBooks. 200+ invoices per week.',
+		tools: ['Make', 'Google Apps Script', 'QuickBooks Online', 'Google Drive'],
+		outcome: 'Automated 80% of invoice processing. Manual review only needed for exceptions.',
+	},
+	{
+		slug: 'automated-client-reporting',
+		title: 'Automated client reporting',
+		client: 'Tax advisory firm (25 staff)',
+		problem: 'Monthly client reports were assembled manually from multiple data sources. Each report took 45 minutes.',
+		tools: ['Power Automate', 'SharePoint', 'Excel', 'Outlook'],
+		outcome: 'Reports generate automatically on the 1st of each month. Staff review and send — 5 minutes per client.',
+	},
+];
+---
+
+<BaseLayout title="Portfolio — Suman Koirala" description="Case studies from automation projects with accounting firms.">
+	<section>
+		<h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-text dark:text-dark-text mb-3">
+			Portfolio
+		</h1>
+		<p class="text-text-muted dark:text-dark-text-muted mb-10 max-w-2xl">
+			Selected automation projects. Client details anonymized where needed.
+		</p>
+
+		<div class="space-y-6">
+			{caseStudies.map((study) => (
+				<a href={`/portfolio/${study.slug}/`} class="block group p-6 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
+					<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+						<h2 class="text-lg font-semibold text-text dark:text-dark-text group-hover:text-accent transition-colors">
+							{study.title}
+						</h2>
+						<span class="text-xs font-mono text-text-muted dark:text-dark-text-muted shrink-0">
+							{study.client}
+						</span>
+					</div>
+					<p class="text-sm text-text-muted dark:text-dark-text-muted mb-3">
+						{study.problem}
+					</p>
+					<div class="flex flex-wrap gap-2">
+						{study.tools.map((tool) => (
+							<span class="text-xs font-mono px-2 py-0.5 rounded bg-surface-alt dark:bg-dark-surface-alt text-text-muted dark:text-dark-text-muted border border-border dark:border-dark-border">
+								{tool}
+							</span>
+						))}
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+</BaseLayout>

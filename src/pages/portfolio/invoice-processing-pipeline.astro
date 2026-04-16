@@ -1,0 +1,12 @@
+---
+import CaseStudy from '../../layouts/CaseStudy.astro';
+---
+
+<CaseStudy
+	title="Invoice processing pipeline"
+	client="Boutique bookkeeping firm (10 staff)"
+	problem="Staff were manually extracting data from PDF invoices and entering it into QuickBooks. They processed 200+ invoices per week. The work was tedious, error-prone, and took up roughly 20 hours of staff time weekly."
+	approach="Set up a Make scenario that watches a Google Drive folder for new invoice PDFs. When a file lands, it extracts key fields (vendor, amount, date, line items) using document parsing, then creates a draft bill in QuickBooks Online. Invoices that can't be parsed cleanly get flagged for manual review instead of silently failing. Built a Google Apps Script dashboard for the team to review and approve batched entries."
+	tools={['Make', 'Google Apps Script', 'QuickBooks Online', 'Google Drive']}
+	outcome="Automated 80% of invoice processing. Manual review only needed for exceptions — roughly 40 invoices per week instead of 200+. Freed up 15+ hours of staff time weekly."
+/>

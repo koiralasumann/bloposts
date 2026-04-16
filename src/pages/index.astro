@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION } from '../consts';
 
+const base = import.meta.env.BASE_URL;
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
@@ -22,10 +23,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 			Copilot Studio, Airtable, and Google Apps Script.
 		</p>
 		<div class="mt-8 flex gap-4">
-			<a href="/portfolio/" class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-accent text-white hover:bg-accent-dark transition-colors">
+			<a href={`${base}portfolio/`} class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-accent text-white hover:bg-accent-dark transition-colors">
 				View my work
 			</a>
-			<a href="/blog/" class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md border border-border dark:border-dark-border text-text dark:text-dark-text hover:bg-surface-alt dark:hover:bg-dark-surface-alt transition-colors">
+			<a href={`${base}blog/`} class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md border border-border dark:border-dark-border text-text dark:text-dark-text hover:bg-surface-alt dark:hover:bg-dark-surface-alt transition-colors">
 				Read the blog
 			</a>
 		</div>
@@ -37,7 +38,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 			<h2 class="text-xl font-semibold text-text dark:text-dark-text mb-6">Recent posts</h2>
 			<div class="space-y-6">
 				{posts.map((post) => (
-					<a href={`/blog/${post.id}/`} class="block group">
+					<a href={`${base}blog/${post.id}/`} class="block group">
 						<article class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
 							<time class="text-sm text-text-muted dark:text-dark-text-muted font-mono shrink-0">
 								{post.data.pubDate.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
@@ -54,7 +55,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 					</a>
 				))}
 			</div>
-			<a href="/blog/" class="inline-block mt-6 text-sm text-accent hover:text-accent-dark transition-colors">
+			<a href={`${base}blog/`} class="inline-block mt-6 text-sm text-accent hover:text-accent-dark transition-colors">
 				All posts &rarr;
 			</a>
 		</section>
@@ -64,7 +65,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 	<section class="py-12 border-t border-border dark:border-dark-border">
 		<h2 class="text-xl font-semibold text-text dark:text-dark-text mb-6">Featured work</h2>
 		<div class="grid sm:grid-cols-2 gap-4">
-			<a href="/portfolio/client-onboarding-automation/" class="block group p-5 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
+			<a href={`${base}portfolio/client-onboarding-automation/`} class="block group p-5 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
 				<h3 class="font-medium text-text dark:text-dark-text group-hover:text-accent transition-colors">
 					Client onboarding automation
 				</h3>
@@ -72,7 +73,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 					Reduced onboarding time from 2 hours to 15 minutes for a mid-size accounting firm using Zapier and Karbon.
 				</p>
 			</a>
-			<a href="/portfolio/invoice-processing-pipeline/" class="block group p-5 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
+			<a href={`${base}portfolio/invoice-processing-pipeline/`} class="block group p-5 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
 				<h3 class="font-medium text-text dark:text-dark-text group-hover:text-accent transition-colors">
 					Invoice processing pipeline
 				</h3>
@@ -81,7 +82,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 				</p>
 			</a>
 		</div>
-		<a href="/portfolio/" class="inline-block mt-6 text-sm text-accent hover:text-accent-dark transition-colors">
+		<a href={`${base}portfolio/`} class="inline-block mt-6 text-sm text-accent hover:text-accent-dark transition-colors">
 			All case studies &rarr;
 		</a>
 	</section>

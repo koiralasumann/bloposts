@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+const base = import.meta.env.BASE_URL;
 const caseStudies = [
 	{
 		slug: 'client-onboarding-automation',
@@ -40,7 +41,7 @@ const caseStudies = [
 
 		<div class="space-y-6">
 			{caseStudies.map((study) => (
-				<a href={`/portfolio/${study.slug}/`} class="block group p-6 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
+				<a href={`${base}portfolio/${study.slug}/`} class="block group p-6 rounded-lg border border-border dark:border-dark-border hover:border-accent/40 transition-colors">
 					<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
 						<h2 class="text-lg font-semibold text-text dark:text-dark-text group-hover:text-accent transition-colors">
 							{study.title}
